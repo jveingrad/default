@@ -1,0 +1,517 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="827" height="84" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Sample Alteryx Workflow
+Normalize phone numbers</Text>
+          <Font name="Segoe UI" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="13" g="35" b="69" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="426" y="54" width="456" height="84" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>A customer file contains a Phone field that needs to be standardized. 
+
+First we will identify the format the phone number should be in and then conduct a couple of separate processes to reformat and parse out the phone number components.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="White" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="688" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>PHONE</Field>
+          <RegExExpression value="(.*[\(]\d\d[\)].*)" />
+          <CaseInsensitve value="False" />
+          <Method>Match</Method>
+          <Replace expression="">
+            <CopyUnmatched value="False" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>PHONE</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="RegExOut1" type="V_WString" size="254" />
+          </ParseComplex>
+          <Match>
+            <Field>NONUS_Number</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Match:
+(.*[\(]\d\d[\)].*)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="572" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="REPLACE([PHONE], ' ', '')" field="PHONE" size="254" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[PHONE = REPLACE([PHONE], ' ', '')
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="463" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1051" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_21952_5f2f9897460f48e4a6dfd054869b62a6_\Engine_17564_0d7bdd5a1d1c441da6847894abe0a8dd_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="928" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>PHONE</Field>
+          <RegExExpression value="(\(\d{3}\))(\d{3})[-](\d{4})" />
+          <CaseInsensitve value="False" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="False" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>PHONE</RootName>
+            <NumFields value="5" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="AREA_CODE" type="V_WString" size="254" />
+            <Field field="PREFIX" type="V_WString" size="254" />
+            <Field field="LAST4DIGITS" type="V_WString" size="254" />
+          </ParseComplex>
+          <Match>
+            <Field>PHONE_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Parse:
+(\(\d{3}\))(\d{3})[-](\d{4})</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="804" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[NONUS_Number] = 0</Expression>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsFalse</Operator>
+            <Field>NONUS_Number</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2018-11-08 13:07:41</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2018-11-08 13:07:41</StartDate>
+              <EndDate>2018-11-08 13:07:41</EndDate>
+              <Operand>
+              </Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[NONUS_Number] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="178" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>PHONE</Field>
+          <RegExExpression value="(.*[\(].*[\)].*[-].*)" />
+          <CaseInsensitve value="False" />
+          <Method>Match</Method>
+          <Replace expression="">
+            <CopyUnmatched value="False" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>PHONE</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="RegExOut1" type="V_WString" size="254" />
+          </ParseComplex>
+          <Match>
+            <Field>PHONE_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Match:
+(.*[\(].*[\)].*[-].*)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="1000">..\..\..\data\SampleData\REGEX_TEST.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>REGEX_TEST.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PHONE" size="254" source="File: C:\Program Files\Alteryx\Samples\en\SampleData\REGEX_TEST.yxdb" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="294" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[PHONE_Matched] = 1</Expression>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsTrue</Operator>
+            <Field>PHONE_Matched</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2018-11-08 12:11:24</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2018-11-08 12:11:24</StartDate>
+              <EndDate>2018-11-08 12:11:24</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[PHONE_Matched] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="288" width="370" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Expand this tool container for workflow descriptions</Caption>
+          <Style TextColor="#000000" FillColor="#e1e7f2" BorderColor="#000000" Transparency="25" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="96">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="64" y="317" width="406" height="24" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Data input and filter</Text>
+              <Font name="Segoe UI" size="8.25" style="1" />
+              <TextColor name="Black" />
+              <FillColor r="236" g="242" b="242" />
+              <Shape shape="3" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="98">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="64" y="342" width="407" height="227" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[- This sample uses the REGEX_TEST.yxdb file from the Alteryx\Samples\<lanaguage>\SampleData folder. Preview the data by selecting the Input tool and viewing the Tool Configuration window.
+
+- Use the RegEx tool to match the standard Phone format ("(123)456-7890") using the following Regular Expression: (.*[\(].*[\)].*[-].*)
+
+Which translates to: 
+Mark a group of characters that follow the pattern: any single character, zero or more times, open parenthesis, any single character, zero or more times, close parenthesis, any single character, zero or more times, dash, any single character, zero or more times, end of marked group.
+
+- Use the Filter tool to split the stream of records from those that matched the expression (T output anchor) to those that did not (F output anchor). ]]></Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="3" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="136">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="484" y="317" width="406" height="24" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Data prep and filter</Text>
+              <Font name="Segoe UI" size="8.25" style="1" />
+              <TextColor name="Black" />
+              <FillColor r="236" g="242" b="242" />
+              <Shape shape="3" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="137">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="484" y="342" width="623" height="347" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>- Select only the PHONE column.
+
+- Use the Formula tool to remove unwanted spaces.
+
+- Use the RegEx tool to match a 2-digit area code (indicating an International #) using the Regular Expression: (.*[\(]\d\d[\)].*)
+
+Which translates to: 
+Mark a group of characters that follow the pattern: any single character, zero or more times, open parenthesis, digit, digit, close parenthesis, any single character, zero or more times, end of marked group.
+
+- Use the Filter tool to split the stream of rows from those that matched the expression (T output anchor) to those that did not (F output anchor).
+
+- Use the RegEx tool to parse standardized phone numbers into their component parts using the Regular Expression: (\(\d{3}\))(\d{3})[-](\d{4})
+
+Which translates to: 
+Mark a group of characters that follow the pattern: open parenthesis,3 digits, close parenthesis, end of marked group. Mark a group of characters that follow the pattern: 3 digits, end of marked group. Dash Mark a group of characters that follow the pattern: 4 digits, end of marked group.
+
+- The phone number has been parsed into AREA_CODE, PREFIX, LAST4DIGITS.</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="3" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="70" Connection="Output" />
+      <Destination ToolID="72" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="70" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="72" Connection="True" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="True" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>02 Normalize_phone_numbers</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="e611fbb8-9668-40f6-a872-8b6f6e36945f" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="e611fbb8-9668-40f6-a872-8b6f6e36945f" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
